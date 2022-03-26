@@ -1,8 +1,5 @@
-main: main.o
-	ld main.o -o main
-
-main.o: main.S
-	as main.S -o main.o
+main: main.S
+	gcc -no-pie -nostdlib main.S -o main
 
 clean:
-	rm main.o main
+	rm main *.o
