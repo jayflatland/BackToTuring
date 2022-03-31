@@ -31,7 +31,8 @@ class Generator:
     def print(self, msg):
         sid = f"_{self.string_cnt}"
         self.string_cnt += 1
-        self.data += fr"""{sid}:
+        self.data += fr"""
+            {sid}:
             .ascii "{msg}\n"
             {sid}_len = . - {sid}
         """
