@@ -10,9 +10,9 @@ class Generator:
         """
         self.code = ""
         self.exit = r"""
-                mov     $60, %rax
-                xor     %rdi, %rdi
-                syscall
+            mov     $60, %rax
+            xor     %rdi, %rdi
+            syscall
         """
 
         self.data = r"""
