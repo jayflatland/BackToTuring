@@ -1,1 +1,3 @@
 test03_read_a_file
+*.o
+test.out
