@@ -3,6 +3,7 @@
 import os
 import sys
 import tempfile
+import shutil
 
 """
 What's this one about?
@@ -35,27 +36,19 @@ def gen_hello_world_program(msg):
     """
 
 
-def hello_world(msg):
-    # class ScopedTempDir:
-    #     def __init__(self):
-    #         self.dir = "work"
-    tmpdir = "work"
-
-    # print("Generating assembly...")
+def run_program(progtext):
+    tmpdir = tempfile.mkdtemp()
     base_filename = os.path.join(tmpdir, "tmp")
     asm_file = open(base_filename + '.asm', 'w')
-    asm_file.write(gen_hello_world_program(msg))
+    asm_file.write(progtext)
     asm_file.close()
 
-    # print("Assembling...")
     os.system(f"nasm -f elf64 -o {base_filename}.o {base_filename}.asm")
-
-    # print("Linking...")
+    #TODO - check for errors here
     os.system(f"ld -m elf_x86_64 -o {base_filename}.x {base_filename}.o")
-
-    # print("Running...")
+    #TODO - check for errors here
     os.system(f"{base_filename}.x")
-
-    #print("HI")
+    shutil.rmtree(tmpdir)
     
-hello_world('"Hello from pygen!"')
+p = gen_hello_world_program('"Hello from pygen!"')
+run_program(p)
