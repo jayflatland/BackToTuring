@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 
-import os
-import sys
-import tempfile
-import shutil
+from run_program import run_asm_program_text
 
 """
 What's this one about?
@@ -36,19 +33,9 @@ def gen_hello_world_program(msg):
     """
 
 
-def run_program(progtext):
-    tmpdir = tempfile.mkdtemp()
-    base_filename = os.path.join(tmpdir, "tmp")
-    asm_file = open(base_filename + '.asm', 'w')
-    asm_file.write(progtext)
-    asm_file.close()
-
-    os.system(f"nasm -f elf64 -o {base_filename}.o {base_filename}.asm")
-    #TODO - check for errors here
-    os.system(f"ld -m elf_x86_64 -o {base_filename}.x {base_filename}.o")
-    #TODO - check for errors here
-    os.system(f"{base_filename}.x")
-    shutil.rmtree(tmpdir)
     
+print("Generating program assembly...")
 p = gen_hello_world_program('"Hello from pygen!"')
-run_program(p)
+print(p)
+print("Running...")
+run_asm_program_text(p)
